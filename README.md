@@ -1,7 +1,7 @@
 
 # PatentTransformer
 
-PatentTransformer is our codename for "Augmented Inventing." The ultimate goal of this project is to help inventors conceive better inventions and quality patents. We leverage Transformer-based models, such as GPT-2 and BERT for patent text generation and measurement. 
+PatentTransformer is our codename for "Augmented Inventing." The ultimate goal of this project is to help inventors conceive better inventions and quality patents. We leverage Transformer-based models, such as GPT-2 and BERT for patent text generation and measurement. Our source code will be released soon.
 
 ## Our preprints & papers
 
