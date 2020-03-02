@@ -1,0 +1,15 @@
+The following SQL selects the first claims of all US utility patents in 2013 and aggregates the CPC codes at subclass level: 
+
+SELECT STRING_AGG(distinct t2. group_id order by t2. group_id) AS cpc_ids, t1.id, t1.date, text
+  FROM `patents-public-data.patentsview.patent` t1, 
+  `patents-public-data.patentsview.cpc_current` t2,
+  `patents-public-data.patentsview.claim` t3
+  where t1.id = t2.patent_id 
+  and t1.id = t3.patent_id
+  and timestamp(t1.date) >= timestamp('2013-01-01') 
+  and timestamp(t1.date) <= timestamp('2013-12-31') 
+  and t3.sequence='1'
+  and t1.type='utility'
+  group by t1.id, t1.date, t3.text
+
+(data source: Google Patents Public Datasets on BigQuery )
