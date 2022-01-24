@@ -3,7 +3,7 @@
   "nbformat_minor": 0,
   "metadata": {
     "colab": {
-      "name": "PatentTransformer-v2",
+      "name": "(paper9) (dev, gdrive) PatentTransformer-v2",
       "provenance": [],
       "collapsed_sections": []
     },
@@ -17,7 +17,8 @@
     {
       "cell_type": "markdown",
       "metadata": {
-        "id": "VXILwCtWpXPT"
+        "id": "VXILwCtWpXPT",
+        "colab_type": "text"
       },
       "source": [
         "### Augmented Inventing"
@@ -27,29 +28,21 @@
       "cell_type": "code",
       "metadata": {
         "id": "NvQBHzpZ86xX",
-        "colab": {
-          "base_uri": "https://localhost:8080/"
-        },
-        "outputId": "ee5135b6-47f1-4253-acbc-f7669863e96d"
+        "colab_type": "code",
+        "colab": {}
       },
       "source": [
         "%tensorflow_version 1.x"
       ],
-      "execution_count": 1,
-      "outputs": [
-        {
-          "output_type": "stream",
-          "name": "stdout",
-          "text": [
-            "TensorFlow 1.x selected.\n"
-          ]
-        }
-      ]
+      "execution_count": 0,
+      "outputs": []
     },
     {
       "cell_type": "code",
       "metadata": {
-        "id": "q49Cdbl5ES9d"
+        "id": "q49Cdbl5ES9d",
+        "colab_type": "code",
+        "colab": {}
       },
       "source": [
         "import sys\n",
@@ -69,17 +62,18 @@
         "  print('unknown mode: %s' % pretrained_model)\n",
         "  sys.exit(1)"
       ],
-      "execution_count": 2,
+      "execution_count": 0,
       "outputs": []
     },
     {
       "cell_type": "code",
       "metadata": {
         "id": "B2dMuHFhsQEC",
-        "outputId": "d5cecf87-6ade-4537-99f2-36748ff88d06",
+        "colab_type": "code",
+        "outputId": "3e752425-9e4e-4340-8c20-ba935e4ab4dd",
         "colab": {
           "base_uri": "https://localhost:8080/",
-          "height": 1000
+          "height": 279
         }
       },
       "source": [
@@ -97,85 +91,27 @@
         "os.chdir(proj_folder)\n",
         "!pip3 install -r requirements.txt"
       ],
-      "execution_count": 3,
+      "execution_count": 0,
       "outputs": [
         {
           "output_type": "stream",
-          "name": "stdout",
           "text": [
-            "Cloning into 'gpt-2'...\n",
-            "remote: Enumerating objects: 233, done.\u001b[K\n",
-            "remote: Total 233 (delta 0), reused 0 (delta 0), pack-reused 233\u001b[K\n",
-            "Receiving objects: 100% (233/233), 4.38 MiB | 14.70 MiB/s, done.\n",
-            "Resolving deltas: 100% (124/124), done.\n",
-            "Collecting fire>=0.1.3\n",
-            "  Downloading fire-0.4.0.tar.gz (87 kB)\n",
-            "\u001b[K     |████████████████████████████████| 87 kB 3.0 MB/s \n",
-            "\u001b[?25hCollecting regex==2017.4.5\n",
-            "  Downloading regex-2017.04.05.tar.gz (601 kB)\n",
-            "\u001b[K     |████████████████████████████████| 601 kB 31.7 MB/s \n",
-            "\u001b[?25hCollecting requests==2.21.0\n",
-            "  Downloading requests-2.21.0-py2.py3-none-any.whl (57 kB)\n",
-            "\u001b[K     |████████████████████████████████| 57 kB 5.1 MB/s \n",
-            "\u001b[?25hCollecting tqdm==4.31.1\n",
-            "  Downloading tqdm-4.31.1-py2.py3-none-any.whl (48 kB)\n",
-            "\u001b[K     |████████████████████████████████| 48 kB 5.0 MB/s \n",
-            "\u001b[?25hRequirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.7/dist-packages (from requests==2.21.0->-r requirements.txt (line 3)) (2021.10.8)\n",
-            "Requirement already satisfied: chardet<3.1.0,>=3.0.2 in /usr/local/lib/python3.7/dist-packages (from requests==2.21.0->-r requirements.txt (line 3)) (3.0.4)\n",
-            "Collecting idna<2.9,>=2.5\n",
-            "  Downloading idna-2.8-py2.py3-none-any.whl (58 kB)\n",
-            "\u001b[K     |████████████████████████████████| 58 kB 5.4 MB/s \n",
-            "\u001b[?25hRequirement already satisfied: urllib3<1.25,>=1.21.1 in /usr/local/lib/python3.7/dist-packages (from requests==2.21.0->-r requirements.txt (line 3)) (1.24.3)\n",
-            "Requirement already satisfied: six in /usr/local/lib/python3.7/dist-packages (from fire>=0.1.3->-r requirements.txt (line 1)) (1.15.0)\n",
-            "Requirement already satisfied: termcolor in /usr/local/lib/python3.7/dist-packages (from fire>=0.1.3->-r requirements.txt (line 1)) (1.1.0)\n",
-            "Building wheels for collected packages: regex, fire\n",
-            "  Building wheel for regex (setup.py) ... \u001b[?25l\u001b[?25hdone\n",
-            "  Created wheel for regex: filename=regex-2017.4.5-cp37-cp37m-linux_x86_64.whl size=534420 sha256=caf541694b428670000a3fed0016a4e94a3b48c0a9681bcb84d883c81b76897b\n",
-            "  Stored in directory: /root/.cache/pip/wheels/3d/e8/a5/d4894e7ef29935f75c6074409ce8ca80a0271f0ce2a30da5d3\n",
-            "  Building wheel for fire (setup.py) ... \u001b[?25l\u001b[?25hdone\n",
-            "  Created wheel for fire: filename=fire-0.4.0-py2.py3-none-any.whl size=115942 sha256=5943612d7901e351ebec7b66690899bb747ba3da32aa669713e55c455f4b1959\n",
-            "  Stored in directory: /root/.cache/pip/wheels/8a/67/fb/2e8a12fa16661b9d5af1f654bd199366799740a85c64981226\n",
-            "Successfully built regex fire\n",
-            "Installing collected packages: idna, tqdm, requests, regex, fire\n",
-            "  Attempting uninstall: idna\n",
-            "    Found existing installation: idna 2.10\n",
-            "    Uninstalling idna-2.10:\n",
-            "      Successfully uninstalled idna-2.10\n",
-            "  Attempting uninstall: tqdm\n",
-            "    Found existing installation: tqdm 4.62.3\n",
-            "    Uninstalling tqdm-4.62.3:\n",
-            "      Successfully uninstalled tqdm-4.62.3\n",
-            "  Attempting uninstall: requests\n",
-            "    Found existing installation: requests 2.23.0\n",
-            "    Uninstalling requests-2.23.0:\n",
-            "      Successfully uninstalled requests-2.23.0\n",
-            "  Attempting uninstall: regex\n",
-            "    Found existing installation: regex 2019.12.20\n",
-            "    Uninstalling regex-2019.12.20:\n",
-            "      Successfully uninstalled regex-2019.12.20\n",
-            "\u001b[31mERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\n",
-            "spacy 2.2.4 requires tqdm<5.0.0,>=4.38.0, but you have tqdm 4.31.1 which is incompatible.\n",
-            "panel 0.12.1 requires tqdm>=4.48.0, but you have tqdm 4.31.1 which is incompatible.\n",
-            "kapre 0.3.6 requires tensorflow>=2.0.0, but you have tensorflow 1.15.2 which is incompatible.\n",
-            "google-colab 1.0.0 requires requests~=2.23.0, but you have requests 2.21.0 which is incompatible.\n",
-            "fbprophet 0.7.1 requires tqdm>=4.36.1, but you have tqdm 4.31.1 which is incompatible.\n",
-            "datascience 0.10.6 requires folium==0.2.1, but you have folium 0.8.3 which is incompatible.\u001b[0m\n",
-            "Successfully installed fire-0.4.0 idna-2.8 regex-2017.4.5 requests-2.21.0 tqdm-4.31.1\n"
-          ]
-        },
-        {
-          "output_type": "display_data",
-          "data": {
-            "application/vnd.colab-display-data+json": {
-              "pip_warning": {
-                "packages": [
-                  "idna",
-                  "requests"
-                ]
-              }
-            }
-          },
-          "metadata": {}
+            "existed: /content/gpt-2\n",
+            "From https://github.com/openai/gpt-2\n",
+            " * branch            master     -> FETCH_HEAD\n",
+            "Already up to date.\n",
+            "Requirement already satisfied: fire>=0.1.3 in /usr/local/lib/python3.6/dist-packages (from -r requirements.txt (line 1)) (0.2.1)\n",
+            "Requirement already satisfied: regex==2017.4.5 in /usr/local/lib/python3.6/dist-packages (from -r requirements.txt (line 2)) (2017.4.5)\n",
+            "Requirement already satisfied: requests==2.21.0 in /usr/local/lib/python3.6/dist-packages (from -r requirements.txt (line 3)) (2.21.0)\n",
+            "Requirement already satisfied: tqdm==4.31.1 in /usr/local/lib/python3.6/dist-packages (from -r requirements.txt (line 4)) (4.31.1)\n",
+            "Requirement already satisfied: six in /usr/local/lib/python3.6/dist-packages (from fire>=0.1.3->-r requirements.txt (line 1)) (1.12.0)\n",
+            "Requirement already satisfied: termcolor in /usr/local/lib/python3.6/dist-packages (from fire>=0.1.3->-r requirements.txt (line 1)) (1.1.0)\n",
+            "Requirement already satisfied: idna<2.9,>=2.5 in /usr/local/lib/python3.6/dist-packages (from requests==2.21.0->-r requirements.txt (line 3)) (2.8)\n",
+            "Requirement already satisfied: chardet<3.1.0,>=3.0.2 in /usr/local/lib/python3.6/dist-packages (from requests==2.21.0->-r requirements.txt (line 3)) (3.0.4)\n",
+            "Requirement already satisfied: urllib3<1.25,>=1.21.1 in /usr/local/lib/python3.6/dist-packages (from requests==2.21.0->-r requirements.txt (line 3)) (1.24.3)\n",
+            "Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.6/dist-packages (from requests==2.21.0->-r requirements.txt (line 3)) (2019.11.28)\n"
+          ],
+          "name": "stdout"
         }
       ]
     },
@@ -183,9 +119,11 @@
       "cell_type": "code",
       "metadata": {
         "id": "kZJwuWIJsQI_",
-        "outputId": "1d173c91-9ced-426c-a8c9-2674ef7139d2",
+        "colab_type": "code",
+        "outputId": "e607063a-45d4-49e9-e41d-45b81c38aef2",
         "colab": {
-          "base_uri": "https://localhost:8080/"
+          "base_uri": "https://localhost:8080/",
+          "height": 133
         }
       },
       "source": [
@@ -210,30 +148,43 @@
         "else:\n",
         "  print('existed: model %s' % model_name)    "
       ],
-      "execution_count": 4,
+      "execution_count": 0,
       "outputs": [
         {
+          "output_type": "display_data",
+          "data": {
+            "text/html": [
+              "<p style=\"color: red;\">\n",
+              "The default version of TensorFlow in Colab will soon switch to TensorFlow 2.x.<br>\n",
+              "We recommend you <a href=\"https://www.tensorflow.org/guide/migrate\" target=\"_blank\">upgrade</a> now \n",
+              "or ensure your notebook will continue to use TensorFlow 1.x via the <code>%tensorflow_version 1.x</code> magic:\n",
+              "<a href=\"https://colab.research.google.com/notebooks/tensorflow_version.ipynb\" target=\"_blank\">more info</a>.</p>\n"
+            ],
+            "text/plain": [
+              "<IPython.core.display.HTML object>"
+            ]
+          },
+          "metadata": {
+            "tags": []
+          }
+        },
+        {
           "output_type": "stream",
-          "name": "stdout",
           "text": [
-            "tf version: 1.15.2\n",
+            "tf version: 1.15.0\n",
             "GPU ready: /device:GPU:0\n",
-            "download model 355M....\n",
-            "Fetching checkpoint: 1.00kit [00:00, 1.03Mit/s]                                                     \n",
-            "Fetching encoder.json: 1.04Mit [00:00, 4.85Mit/s]                                                   \n",
-            "Fetching hparams.json: 1.00kit [00:00, 783kit/s]                                                    \n",
-            "Fetching model.ckpt.data-00000-of-00001: 1.42Git [00:36, 39.3Mit/s]                                 \n",
-            "Fetching model.ckpt.index: 11.0kit [00:00, 6.62Mit/s]                                               \n",
-            "Fetching model.ckpt.meta: 927kit [00:00, 4.95Mit/s]                                                 \n",
-            "Fetching vocab.bpe: 457kit [00:00, 3.11Mit/s]                                                       \n"
-          ]
+            "existed: model 355M\n"
+          ],
+          "name": "stdout"
         }
       ]
     },
     {
       "cell_type": "code",
       "metadata": {
-        "id": "T9C9lZ6jgrCo"
+        "id": "T9C9lZ6jgrCo",
+        "colab_type": "code",
+        "colab": {}
       },
       "source": [
         "# the following code is copied from: \n",
@@ -266,16 +217,18 @@
         "        response = session.get(URL, params = params, stream = True)\n",
         "    save_response_content(response, destination)    "
       ],
-      "execution_count": 5,
+      "execution_count": 0,
       "outputs": []
     },
     {
       "cell_type": "code",
       "metadata": {
         "id": "nI-rkoeYTWFP",
-        "outputId": "063ce10a-f241-42ea-fd89-be7819ada534",
+        "colab_type": "code",
+        "outputId": "a4382a93-8399-48fc-caf0-9066bc27744f",
         "colab": {
-          "base_uri": "https://localhost:8080/"
+          "base_uri": "https://localhost:8080/",
+          "height": 69
         }
       },
       "source": [
@@ -283,28 +236,28 @@
         "\n",
         "download_links = {\n",
         "  'M1':{\n",
-        "    'checkpoint': '1fbCvkKhDsVNhIQ8BoL_rbXF5TCQ2P86i',\n",
-        "    'model.ckpt-1000000.index': '1ufRUSOC3kov4MO-tIPFTpvlxyunjMAN-',\n",
-        "    'model.ckpt-1000000.meta': '1gzqD7PLL2oc4akZ-MZoAKpQldRTzlAtB',\n",
-        "    'model.ckpt-1000000.data-00000-of-00001': '1bHr1aNlx966-k62jXZ1tzwWXPJ-hlu1B'\n",
+        "    'checkpoint': '1F6YxlYHy-0f0vmsEi5gOe91wLBCxk6Ud',\n",
+        "    'model.ckpt-1000000.index': '1KqSe-N9sW2hZEY7-M7RSwU0_CfK1sSDI',\n",
+        "    'model.ckpt-1000000.meta': '1F21mkrvf3bfwx-2YZlT46_qU3Vgva7NI',\n",
+        "    'model.ckpt-1000000.data-00000-of-00001': '1N4AI0N930-3heAUP2f5_pjuZQYC62J4w'\n",
         "  },\n",
         "  'M2':{\n",
-        "    'checkpoint': '1Ccovn7Bi7VRzwvHs0d_V565J1Jr5pVnf',\n",
-        "    'model.ckpt-1000000.index': '1Cj4w-Qw9Ph52qbhf_VEjra41iYwoHMjq',\n",
-        "    'model.ckpt-1000000.meta': '1xMUJUE16UxexVX_j2XnbNY2QLg9OyTYQ',\n",
-        "    'model.ckpt-1000000.data-00000-of-00001': '1TUZR1O7cAS0UAqjlt0T7t61PgIv9dilG'\n",
+        "    'checkpoint': '1eqWbBY03soS2uurKYdbj1GEdOvCAtbw9',\n",
+        "    'model.ckpt-1000000.index': '1X96DuunLroV7CP4GJJpMuWxqtP0HxH9n',\n",
+        "    'model.ckpt-1000000.meta': '1FoabPlD9Ek4vuTer2FVG7TLZCrKmdW1B',\n",
+        "    'model.ckpt-1000000.data-00000-of-00001': '1AhU1Cx2_hpzYk3Wrsz7G36qOXWvOJfbY'\n",
         "  },\n",
         "  'M3':{\n",
-        "    'checkpoint': '1jJUI5JmeZtHEViVOWoVrih-bdxbvvuQk',\n",
-        "    'model.ckpt-1000000.index': '1_3lDxDaqzHufGEVZMICvPR4_3qun9PRB',\n",
-        "    'model.ckpt-1000000.meta': '1-FWkpAVA6n_6BbdORzsoN5QO-PvcOd8S',\n",
-        "    'model.ckpt-1000000.data-00000-of-00001': '1bzcJ7JffJIRgobseYqkokEcZmqsG_k5o'\n",
+        "    'checkpoint': '1g8F5Ju4-6QYXeTa74BxS4w_dv38bBWwS',\n",
+        "    'model.ckpt-1000000.index': '1MLeMzyNdDnxTWoFdb6eacAqrv-EH79Hh',\n",
+        "    'model.ckpt-1000000.meta': '1vCSneihB3As9rF0X6LoWltb7GKHIZEML',\n",
+        "    'model.ckpt-1000000.data-00000-of-00001': '1IbrnX1fvSpuMoYVsjrBnMNTYnnTkukso'\n",
         "  },\n",
         "  'M4':{\n",
-        "    'checkpoint': '1PpF9mlCq45NlFhiUEroP6HfejrHM_lDk',\n",
-        "    'model.ckpt-1000000.index': '1BCqepKM8FOdFI2LGuqyo6ylVr8Df2b0j',\n",
-        "    'model.ckpt-1000000.meta': '1UFuiF-9uA-0icH3Gk-X2NMIozeUK8ecv',\n",
-        "    'model.ckpt-1000000.data-00000-of-00001': '1rTJ8Z9pQQSuLR2bGQyNh4rpYfJx3Rbta'\n",
+        "    'checkpoint': '16pNZTOS-YMlGZGSapMuhduLwrrIPRD7E',\n",
+        "    'model.ckpt-1000000.index': '1TFIKqujh1s6285ShaN7QjNgNfm62qMp4',\n",
+        "    'model.ckpt-1000000.meta': '1jEFYMNVPgId70Hkuy1yXdnUMzTXwC7XY',\n",
+        "    'model.ckpt-1000000.data-00000-of-00001': '1FzesRtEhz7cu1ZxCbwQRsUd8uFuFyWmH'\n",
         "  },\n",
         "}\n",
         "\n",
@@ -322,29 +275,25 @@
         "  print('Download: ok')\n",
         "os.chdir(proj_folder)"
       ],
-      "execution_count": 6,
+      "execution_count": 0,
       "outputs": [
         {
           "output_type": "stream",
-          "name": "stdout",
           "text": [
-            "Downloading files to saved_checkpoint_355M....\n",
-            "total 4167312\n",
-            "drwxr-xr-x 2 root root       4096 Jan 24 01:49 .\n",
-            "drwxr-xr-x 6 root root       4096 Jan 24 01:49 ..\n",
-            "-rw-r--r-- 1 root root        141 Jan 24 01:49 checkpoint\n",
-            "-rw-r--r-- 1 root root 4257878032 Jan 24 01:50 model.ckpt-1000000.data-00000-of-00001\n",
-            "-rw-r--r-- 1 root root      13074 Jan 24 01:49 model.ckpt-1000000.index\n",
-            "-rw-r--r-- 1 root root    9409957 Jan 24 01:49 model.ckpt-1000000.meta\n",
-            "Download: ok\n"
-          ]
+            "Existed: saved_checkpoint_355M\n",
+            "checkpoint\t\t\t\tmodel.ckpt-1000000.index\n",
+            "model.ckpt-1000000.data-00000-of-00001\tmodel.ckpt-1000000.meta\n"
+          ],
+          "name": "stdout"
         }
       ]
     },
     {
       "cell_type": "code",
       "metadata": {
-        "id": "DiBKgo1SsQWu"
+        "id": "DiBKgo1SsQWu",
+        "colab_type": "code",
+        "colab": {}
       },
       "source": [
         "import json\n",
@@ -487,16 +436,18 @@
         "\n",
         "  return all_results  "
       ],
-      "execution_count": 7,
+      "execution_count": 0,
       "outputs": []
     },
     {
       "cell_type": "code",
       "metadata": {
         "id": "qMb9BXusYfrO",
-        "outputId": "6536d807-e3b1-4486-cdf3-582a3fdb48cd",
+        "colab_type": "code",
+        "outputId": "fa32bd97-5917-4ebc-856c-6cae9dcf6f21",
         "colab": {
-          "base_uri": "https://localhost:8080/"
+          "base_uri": "https://localhost:8080/",
+          "height": 1000
         }
       },
       "source": [
@@ -572,71 +523,95 @@
         "  \n",
         "print('Thank you for testing Augmented Inventing.')"
       ],
-      "execution_count": null,
+      "execution_count": 0,
       "outputs": [
         {
           "output_type": "stream",
-          "name": "stdout",
           "text": [
-            "WARNING:tensorflow:From /content/gpt-2/src/sample.py:51: The name tf.AUTO_REUSE is deprecated. Please use tf.compat.v1.AUTO_REUSE instead.\n",
-            "\n",
-            "WARNING:tensorflow:From /content/gpt-2/src/model.py:148: The name tf.variable_scope is deprecated. Please use tf.compat.v1.variable_scope instead.\n",
-            "\n",
-            "WARNING:tensorflow:From /content/gpt-2/src/model.py:152: The name tf.get_variable is deprecated. Please use tf.compat.v1.get_variable instead.\n",
-            "\n",
-            "WARNING:tensorflow:From /content/gpt-2/src/model.py:36: The name tf.rsqrt is deprecated. Please use tf.math.rsqrt instead.\n",
-            "\n",
-            "WARNING:tensorflow:From /content/gpt-2/src/sample.py:64: to_float (from tensorflow.python.ops.math_ops) is deprecated and will be removed in a future version.\n",
-            "Instructions for updating:\n",
-            "Use `tf.cast` instead.\n",
-            "WARNING:tensorflow:From /content/gpt-2/src/sample.py:16: where (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.\n",
-            "Instructions for updating:\n",
-            "Use tf.where in 2.0, which has the same broadcast rule as np.where\n",
-            "WARNING:tensorflow:From /content/gpt-2/src/sample.py:67: multinomial (from tensorflow.python.ops.random_ops) is deprecated and will be removed in a future version.\n",
-            "Instructions for updating:\n",
-            "Use `tf.random.categorical` instead.\n",
+            "/usr/local/lib/python3.6/dist-packages/tensorflow_core/python/client/session.py:1750: UserWarning: An interactive session is already active. This can cause out-of-memory errors in some cases. You must explicitly call `InteractiveSession.close()` to release resources held by the other session(s).\n",
+            "  warnings.warn('An interactive session is already active. This can '\n"
+          ],
+          "name": "stderr"
+        },
+        {
+          "output_type": "stream",
+          "text": [
             "INFO:tensorflow:Restoring parameters from saved_checkpoint_355M/model.ckpt-1000000\n",
             "Demo: a few words --> title --> abstract --> independent claim --> dependent claims\n",
             "Input text or \"exit\" or \"Enter\" key for unconditional sampling.....\n",
-            ">>> virtual reality\n",
-            "[ title ] direction=both, input_text=virtual reality\n",
-            "Apparatus for controlling visual and visual effects on real-time display data for a virtual reality device\n",
+            ">>> image quality\n",
+            "[ title ] direction=both, input_text=image quality\n",
+            "Method and apparatus for image quality enhancement based on edge detection\n",
             "\n",
             "[ title --> abstract ]\n",
-            "A method and apparatus for displaying visual and visual effects on a three-dimensional (3D) display to produce in real-time a virtual 3D environment. A user is provided with input controls in an interactive, real-time manner to control visual effects and visual effects as well as other characteristics using a virtual 3D display. The 3D display is rendered as a real-time display data, which is converted to a set of pixel elements, each pixel element having a predetermined position on the display, and including a plurality of color elements. The position of the color elements within the pixel elements is controlled such that no color elements appear at all when the pixel is rendered. The color elements of the pixel elements are controlled to provide a virtual image in real time of a real space in the display data. The visual effects are changed or varied within the virtual image in real-time in response to the user input controls such that a user can see a desired visual effect such as display of a 2-D image, a 3-D image or a 3D image at a 3D display screen having a particular display format.\n",
+            "The present invention relates to a method and apparatus for increasing image quality in an image system such as a digital video image recording and retrieval system. In particular, in one embodiment, the present invention uses one or more edge detection algorithms to enhance image quality by identifying edges in the image or object and applying the algorithm(s) to the identified edges to correct for distortion in the image and thereby enhance image quality. In another embodiment, the present invention applies adaptive edge detection algorithms to identify edges, identify the number of detected edges to be used as a feature set, and applies an algorithm based on the set of candidate edge candidate features to correct for distortion in the image and thereby enhance image quality.\n",
             "\n",
             "[ abstract --> claim ]\n",
-            "Apparatus, responsive to a user command, controlling real-time, visual properties for a camera system that outputs video data representative of an image to be displayed by the camera system, the apparatus comprising: \n",
-            "\t a first memory device for storing real-time, visual image parameters that define a visual image; \n",
-            "\t a second memory device for storing visual-image-component data that define a visual component that is to be associated with at least one of the real-time, visual image parameters that define a visual image; \n",
-            "\t a control device for controlling the operation of the camera system in response to command from the user; and \n",
-            "\t a processing circuit configured to, in relation to a user command, cause the control device to control the real-time, visual image parameters, to cause the camera system to output video data which would provide real-time, visual properties for the camera system according to the real-time, visual image parameters in accordance with the real-time, visual-image-component data in the second memory device, and \n",
-            "\t to cause the camera system to display the image represented by the video data, with the real-time, visual image-component data corresponding to the real-time, visual image parameters in the second memory device to thereby create a virtual image.\n",
+            "The method of enhancing image quality in images provided to a printer, said method comprising: \n",
+            "\t determining an edge-detector threshold value for each pixel; \n",
+            "\t detecting edge boundaries in a set of pixels in images provided to a printer; and \n",
+            "\t controlling the application of a predetermined amount of enhancement to the pixel based on the detected edge boundaries for the pixels in the set, \n",
+            "\t wherein the step of determining comprises: \n",
+            "\t setting a set of reference pixels in a color space of the image; \n",
+            "\t applying a color correction to the set of reference pixels to obtain a corrected set of reference pixels; \n",
+            "\t comparing the edge-detector threshold value to each pixel in the corrected set of reference pixels to determine a pixel from the corrected set of reference pixels having an edge-detector value above the threshold value, the edge-detector value indicating whether the pixel represents edge; \n",
+            "\t comparing the pixel of the set of reference pixels with a corresponding pixel in the color space of the image to determine a pixel value comprising the sum of the two comparison results; \n",
+            "\t determining the difference between the pixel value and the edge-detection value for the pixel, wherein the step of determining a difference for each pixel comprises comparing it with a range of values in the color space of the image and when the pixel is outside the range of values in the color space of the image the pixel is assigned a smaller value.\n",
             "\n",
             "[ dependent claim ]\n",
-            "Apparatus as claimed in claim 9, wherein said real-time display data is generated with a computer, said computer also having at least one of said virtual reality device and at least one of said real-time application, and \n",
-            "\t comprising an interface for displaying said display data in real time for one of said virtual reality device and said real-time application.\n",
-            "The apparatus defined in claim 1 further comprising: \n",
-            "\t means for storing video image data for the virtual reality device, said video image data comprising video data for a plurality of virtual images on a display; and \n",
-            "\t means for selectively storing visual data for different portions of the virtual images, the storage means having capacity sufficient to store multiple real-time data and comprising: \n",
-            "\t means for determining relative size of each real-time data and the size of the video data; and \n",
-            "\t means for storing the video and visual data in a predetermined area on the display as stored data.\n",
+            "The method according to claim 5, wherein at least one of said edge detection method and said apparatus are employed to perform image quality enhancement.\n",
+            "The method of claim 10 wherein the step of applying a thresholding process to the data in a range of about 0.15% to about 0.25% in the frequency domain comprises the step of filtering the data in the frequency domain to detect a first transition of the data at a first edge, and \n",
+            "\t wherein the step of comparing the first transition of the data with a data threshold to determine whether an edge exists at a first point of interest comprises the step of comparing the first transition of the data with a first threshold and a second transition of the data at an adjacent second point of interest to determine whether the first and second points of interest form a first edge.\n",
             "\n",
             "Demo: a few words --> title --> abstract --> independent claim --> dependent claims\n",
-            "Input text or \"exit\" or \"Enter\" key for unconditional sampling.....\n"
-          ]
+            "Input text or \"exit\" or \"Enter\" key for unconditional sampling.....\n",
+            ">>> \n",
+            "[ title ] direction=forward, input_text=\n",
+            "Process for fabricating a flash memory device for forming buried contact holes\n",
+            "\n",
+            "[ title --> abstract ]\n",
+            "The present invention discloses a process for fabricating a flash memory device, comprising the steps of: forming a first conductive type well and a first conductive type diffusion region in the substrate; forming a first gate oxide and a first polysilicon layer on the substrate; removing the first polysilicon layer and the first gate oxide and forming a first gate in the first conductive type well; forming a first insulating layer on the first gate and the first conductive type diffusion region; forming a second conducting layer on the first insulating layer; forming a second insulating layer on the second conducting layer; forming a third conducting layer on the second insulating layer; forming a third insulating layer on the third conducting layer; forming a plurality of openings in the third conducting layer, the first insulating layer, the second insulating layer and the third insulating layer to expose the second polysilicon layer and the first conductive type diffusion region; forming a conformal second polysilicon layer on the third insulating layer, the plurality of openings and covering the first polysilicon layer, the first gate oxide and the first conductive type diffusion region; removing all the third conducting layer, the second insulating layer and the third insulating layer; and forming first and second metal lines to connect each other over the exposed second polysilicon layer for forming a memory cell.\n",
+            "\n",
+            "[ abstract --> claim ]\n",
+            "The method of fabricating a flash memory device comprising the steps of: \n",
+            "\t providing a substrate having an insulating layer thereon; \n",
+            "\t forming a plurality of gate electrodes in the insulate layer and spaced a predetermined distance apart from each other; \n",
+            "\t forming a plurality of conductive lines parallel to the gate electrodes with an insulating layer formed between the gate electrodes; \n",
+            "\t covering the substrate having the insulating layer, the gate electrodes, and \n",
+            "\t the conductive lines with a passivation layer; \n",
+            "\t removing a predetermined thickness of the passivation layer and the insulating layer using a mask; \n",
+            "\t patterning the conductive lines using the passivation layer pattern as a mask and etching the insulating layer; \n",
+            "\t thereafter, using a polysilicon as a blocking layer as a mask for exposing a predetermined area of the passivation layer and forming conductive blocks from the polysilicon; \n",
+            "\t forming insulator spacers at lateral walls of the conductive blocks such that the conductive blocks are separated from each other; \n",
+            "\t selectively forming insulator spacers for preventing the passivation layer exposed by the conductive blocks from being etched; and \n",
+            "\t simultaneously forming buried contact holes by etching the passivation layer using the conductive blocks as etching masks and forming buried contact holes from the passivation layer using the conductive blocks as masking masks, such that the buried contact holes are vertically aligned with the conductive blocks and are in direct contact with the conductive lines.\n",
+            "\n",
+            "[ dependent claim ]\n",
+            "Process according to claim 1, wherein the silicon oxide layer is deposited by plasma enhanced chemical vapor deposition at a pressure from 0.5 to 7.0 Pa (100 to 1, \n",
+            "\t 000 Torr).\n",
+            "Method of claim 1, wherein the process comprises forming a plurality of trenches, etching the sidewalls of the trenches with ion-beam etching, forming an amorphous silicon layer over the surfaces of the trenches, and \n",
+            "\t depositing a doped polysilicon layer to fill the trenches.\n",
+            "\n",
+            "Demo: a few words --> title --> abstract --> independent claim --> dependent claims\n",
+            "Input text or \"exit\" or \"Enter\" key for unconditional sampling.....\n",
+            ">>> exit\n",
+            "Thank you for testing Augmented Inventing.\n"
+          ],
+          "name": "stdout"
         }
       ]
     },
     {
       "cell_type": "code",
       "metadata": {
-        "id": "iwPMFKbggieR"
+        "id": "iwPMFKbggieR",
+        "colab_type": "code",
+        "colab": {}
       },
       "source": [
         ""
       ],
-      "execution_count": null,
+      "execution_count": 0,
       "outputs": []
     }
   ]
